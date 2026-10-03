@@ -1,0 +1,46 @@
+{
+  "verifiedAt": "2026-10-03T18:09:25.676Z",
+  "video": {
+    "videoDurationSeconds": 180,
+    "containerDurationSeconds": 180.011,
+    "width": 1920,
+    "height": 1080,
+    "videoCodec": "h264",
+    "audioCodec": "aac",
+    "fullDecode": "PASS",
+    "source": "Edited actual public HTTPS browser recording; generated English narration; recovery uses an independently verified public Stripe screenshot"
+  },
+  "deck": {
+    "slides": 11,
+    "pptxPackageIntegrity": "PASS",
+    "nativePdfPagesVisuallyReviewed": 11,
+    "powerPointApplicationReview": "Not performed"
+  },
+  "files": [
+    {
+      "path": "public/CrossCart-Demo-3min.mp4",
+      "bytes": 10902820,
+      "sha256": "3c071fa9dd2f1e794fae1b27d566590609d1107e64b8c19250ffc1c46652523a"
+    },
+    {
+      "path": "public/CrossCart-Demo-English.vtt",
+      "bytes": 3557,
+      "sha256": "fcd779ea3a0002f3d0202ac13a5af6f325465780a09999ce6435bdb29d0a7606"
+    },
+    {
+      "path": "public/crosscart-demo-poster.jpg",
+      "bytes": 69836,
+      "sha256": "a0ec9f7f95b2b5018e32f4682a57ab2098d5b6c41abd65acb85e82ff5c108d1d"
+    },
+    {
+      "path": "public/CrossCart-Pitch-Deck.pdf",
+      "bytes": 536838,
+      "sha256": "2be610c014436f9e326dca5767192dfe1fceb0d5e05a3dcef7a63e61f6cb398c"
+    },
+    {
+      "path": "public/CrossCart-Pitch-Deck.pptx",
+      "bytes": 881729,
+      "sha256": "9ac5dda7c5e8ff706776bdfd37e2005266b7984d5b859d8454b1fee525fe3043"
+    }
+  ]
+}

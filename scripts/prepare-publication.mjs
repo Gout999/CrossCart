@@ -10,7 +10,7 @@ const files = [];
 function walk(directory, relative = '') {
   for (const entry of readdirSync(directory, { withFileTypes: true })) {
     const name = join(relative, entry.name);
-    if (['.git', '.vercel', '.local.nosync', 'node_modules', '.next'].includes(entry.name) || name === 'docs/source-manifest.json' || /^\.env(?!\.example$)/.test(entry.name)) continue;
+    if (['.git', '.vercel', '.local.nosync', 'node_modules', '.next', 'data', 'test-results', 'playwright-report', 'output'].includes(entry.name) || entry.name.endsWith('.tsbuildinfo') || name === 'docs/source-manifest.json' || /^\.env(?!\.example$)/.test(entry.name)) continue;
     if (entry.isDirectory()) walk(join(directory, entry.name), name);
     else files.push({ path: name, sha256: createHash('sha256').update(readFileSync(join(directory, entry.name))).digest('hex') });
   }

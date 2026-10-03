@@ -1,0 +1,269 @@
+{
+  "observedAtHongKong": "2026-10-04",
+  "liveURL": "https://crosscart.vercel.app/",
+  "repository": "https://github.com/Gout999/CrossCart",
+  "testedCodeCommit": "3bf8846",
+  "deploymentRegion": "sin1",
+  "nodeMajor": 24,
+  "database": "Dedicated Neon Free PostgreSQL in Singapore",
+  "scope": "Actual official Stripe TEST provider interaction and synthetic merchants/orders. No real money, goods or rewards. Local simulations reported separately.",
+  "cloudBrowserCases": {
+    "passed": 8,
+    "failed": 0
+  },
+  "transactions": {
+    "happy": {
+      "runId": "14b4356c-4297-4ac2-a7dd-d572a08d5024",
+      "status": "CONFIRMED",
+      "paymentState": "CAPTURED",
+      "orderState": "CONFIRMED",
+      "recoveryState": "NONE",
+      "approvedTotalMinor": 174900,
+      "currency": "hkd",
+      "mandateHash": "695d8319cb7bc07625ebdb0412c34f4e3a5b666a317230701404cf0d04ec2590",
+      "paymentId": "pi_3UMWQY1U3KcEaHYm19XhoG7N",
+      "checkoutCreated": true,
+      "provider": {
+        "checkedAt": "2026-10-03T17:09:00.980Z",
+        "officialStripeSandboxVerified": true,
+        "checkout": {
+          "id": "cs_test_a1FTD264xp2rzJaLvXIA5EH9j3RbbSjM6KlWFoUHJCgnZf31BM72fOViwZ",
+          "status": "complete",
+          "paymentIntent": "pi_3UMWQY1U3KcEaHYm19XhoG7N",
+          "totalMinor": 174900,
+          "currency": "hkd",
+          "livemode": false
+        },
+        "payment": {
+          "id": "pi_3UMWQY1U3KcEaHYm19XhoG7N",
+          "status": "succeeded",
+          "authorizedMinor": 174900,
+          "receivedMinor": 174900,
+          "currency": "hkd",
+          "captureMethod": "manual",
+          "captureBefore": 1791652131,
+          "livemode": false,
+          "metadata": {
+            "mandate_hash": "695d8319cb7bc07625ebdb0412c34f4e3a5b666a317230701404cf0d04ec2590",
+            "mandate_id": "530a1d90-ca8e-430a-b618-5ba732fcb663",
+            "payee_id": "acct_1UM7821U3KcEaHYm",
+            "run_id": "14b4356c-4297-4ac2-a7dd-d572a08d5024"
+          }
+        }
+      },
+      "auditExcerpt": [
+        {
+          "timestamp": "2026-10-03T17:08:40.295Z",
+          "source": "buyer",
+          "reason": "Buyer explicitly approved 174900 HKD minor units."
+        },
+        {
+          "timestamp": "2026-10-03T17:08:41.806Z",
+          "source": "policy",
+          "reason": "Exact mandate checked before any payment operation."
+        },
+        {
+          "timestamp": "2026-10-03T17:08:54.248Z",
+          "source": "policy",
+          "reason": "Capture claimed after final exact-offer AND active merchant-quote validation."
+        }
+      ]
+    },
+    "price-drift": {
+      "runId": "fdb0e5a2-28a5-4c9c-9395-72a257801c3f",
+      "status": "BLOCKED",
+      "paymentState": "NOT_STARTED",
+      "orderState": "NOT_CREATED",
+      "recoveryState": "NONE",
+      "approvedTotalMinor": 174900,
+      "currency": "hkd",
+      "mandateHash": "2511e248eaddd435aeda666c7ea30784e51d1ca5cb3766cb5992e42ee232ec9e",
+      "paymentId": null,
+      "checkoutCreated": false
+    },
+    "refund": {
+      "runId": "d6fd52d2-3eed-4604-afeb-76052a537a31",
+      "status": "RECOVERED",
+      "paymentState": "CAPTURED",
+      "orderState": "FAILED",
+      "recoveryState": "REFUNDED",
+      "approvedTotalMinor": 174900,
+      "currency": "hkd",
+      "mandateHash": "12d119e64d23f2fd8d1a6273a671188f3fc8a4535279b394e7f5ed12c6a07773",
+      "paymentId": "pi_3UMWRJ1U3KcEaHYm09NfBtN6",
+      "checkoutCreated": true,
+      "provider": {
+        "checkedAt": "2026-10-03T17:09:51.960Z",
+        "officialStripeSandboxVerified": true,
+        "checkout": {
+          "id": "cs_test_a1pay8MtUn51OwYuOd8jsee8ixGYKIgg8ACwaLxNhJq7xQIIowhXahzcr8",
+          "status": "complete",
+          "paymentIntent": "pi_3UMWRJ1U3KcEaHYm09NfBtN6",
+          "totalMinor": 174900,
+          "currency": "hkd",
+          "livemode": false
+        },
+        "payment": {
+          "id": "pi_3UMWRJ1U3KcEaHYm09NfBtN6",
+          "status": "succeeded",
+          "authorizedMinor": 174900,
+          "receivedMinor": 174900,
+          "currency": "hkd",
+          "captureMethod": "manual",
+          "captureBefore": 1791652178,
+          "livemode": false,
+          "metadata": {
+            "mandate_hash": "12d119e64d23f2fd8d1a6273a671188f3fc8a4535279b394e7f5ed12c6a07773",
+            "mandate_id": "e117f52f-cfbc-4f0e-8b73-05aa376c4218",
+            "payee_id": "acct_1UM7821U3KcEaHYm",
+            "run_id": "d6fd52d2-3eed-4604-afeb-76052a537a31"
+          }
+        },
+        "refund": {
+          "id": "re_3UMWRJ1U3KcEaHYm099sYl2X",
+          "status": "succeeded",
+          "paymentIntent": "pi_3UMWRJ1U3KcEaHYm09NfBtN6",
+          "amountMinor": 174900,
+          "currency": "hkd",
+          "metadata": {
+            "mandate_hash": "12d119e64d23f2fd8d1a6273a671188f3fc8a4535279b394e7f5ed12c6a07773",
+            "mandate_id": "e117f52f-cfbc-4f0e-8b73-05aa376c4218",
+            "operation_id": "d6fd52d2-3eed-4604-afeb-76052a537a31:refund",
+            "payee_id": "acct_1UM7821U3KcEaHYm",
+            "run_id": "d6fd52d2-3eed-4604-afeb-76052a537a31"
+          }
+        }
+      }
+    }
+  },
+  "additionalWebhookCase": {
+    "passed": true,
+    "checkedAt": "2026-10-03T17:14:31.195Z",
+    "runId": "7315aed1-af7e-4ca2-944f-5f81c516d819",
+    "paymentId": "pi_3UMWVp1U3KcEaHYm1BbB8WyS",
+    "successReturnBlocked": true,
+    "noCrossCartApiPollingBeforeSettlement": true,
+    "observation": "Read-only PostgreSQL observation",
+    "events": [
+      {
+        "id": "evt_3UMWVp1U3KcEaHYm1cJ3Ut6o",
+        "type": "payment_intent.succeeded",
+        "objectId": "pi_3UMWVp1U3KcEaHYm1BbB8WyS",
+        "paymentIntent": "pi_3UMWVp1U3KcEaHYm1BbB8WyS",
+        "livemode": false,
+        "receipt": {
+          "id": "evt_3UMWVp1U3KcEaHYm1cJ3Ut6o",
+          "runId": "7315aed1-af7e-4ca2-944f-5f81c516d819",
+          "eventType": "payment_intent.succeeded",
+          "objectType": "payment_intent",
+          "objectId": "pi_3UMWVp1U3KcEaHYm1BbB8WyS",
+          "eventCreated": 1791047660,
+          "receivedAt": "2026-10-03T17:14:22.176Z",
+          "verifiedSignature": true,
+          "status": "HANDLED",
+          "attempts": 0,
+          "processedAt": "2026-10-03T17:14:22.881Z",
+          "retrievedState": "succeeded",
+          "reason": "Correlated with authoritative provider retrieval through the existing worker/gate."
+        }
+      },
+      {
+        "id": "evt_1UMWVq1U3KcEaHYm9pWrIzEm",
+        "type": "checkout.session.completed",
+        "objectId": "cs_test_a15ByhSaehehC2c09AWmwLSxrb7QSjvlHGH0F5vxnb34SfPo0a41XJjHSg",
+        "paymentIntent": "pi_3UMWVp1U3KcEaHYm1BbB8WyS",
+        "livemode": false,
+        "receipt": {
+          "id": "evt_1UMWVq1U3KcEaHYm9pWrIzEm",
+          "runId": "7315aed1-af7e-4ca2-944f-5f81c516d819",
+          "eventType": "checkout.session.completed",
+          "objectType": "checkout.session",
+          "objectId": "cs_test_a15ByhSaehehC2c09AWmwLSxrb7QSjvlHGH0F5vxnb34SfPo0a41XJjHSg",
+          "eventCreated": 1791047657,
+          "receivedAt": "2026-10-03T17:14:18.878Z",
+          "verifiedSignature": true,
+          "status": "HANDLED",
+          "attempts": 0,
+          "processedAt": "2026-10-03T17:14:21.079Z",
+          "retrievedState": "succeeded",
+          "reason": "Correlated with authoritative provider retrieval through the existing worker/gate."
+        }
+      },
+      {
+        "id": "evt_3UMWVp1U3KcEaHYm1KcuuOlL",
+        "type": "payment_intent.amount_capturable_updated",
+        "objectId": "pi_3UMWVp1U3KcEaHYm1BbB8WyS",
+        "paymentIntent": "pi_3UMWVp1U3KcEaHYm1BbB8WyS",
+        "livemode": false,
+        "receipt": {
+          "id": "evt_3UMWVp1U3KcEaHYm1KcuuOlL",
+          "runId": "7315aed1-af7e-4ca2-944f-5f81c516d819",
+          "eventType": "payment_intent.amount_capturable_updated",
+          "objectType": "payment_intent",
+          "objectId": "pi_3UMWVp1U3KcEaHYm1BbB8WyS",
+          "eventCreated": 1791047657,
+          "receivedAt": "2026-10-03T17:14:18.836Z",
+          "verifiedSignature": true,
+          "status": "HANDLED",
+          "attempts": 0,
+          "processedAt": "2026-10-03T17:14:21.079Z",
+          "retrievedState": "succeeded",
+          "reason": "Correlated with authoritative provider retrieval through the existing worker/gate."
+        }
+      }
+    ],
+    "invalidSignatureStatus": 400,
+    "localReplay": {
+      "scope": "LOCAL SDK-SIGNED REPLAY; not official redelivery",
+      "sourceEvent": "evt_3UMWVp1U3KcEaHYm1KcuuOlL",
+      "duplicateAcknowledged": true,
+      "alteredReorderingFixtureId": "local_replay_evt_3UMWVp1U3KcEaHYm1KcuuOlL",
+      "retrievedState": "succeeded",
+      "samePaymentAndOrder": true
+    },
+    "officialRedelivery": "Not exercised in this run. SDK-signed replay is a local fixture."
+  },
+  "publicHTTP": {
+    "checkedAt": "2026-10-03T17:31:29.166Z",
+    "baseURL": "https://crosscart.vercel.app",
+    "anonymousPages": [
+      {
+        "path": "/",
+        "status": 200
+      },
+      {
+        "path": "/evidence",
+        "status": 200
+      },
+      {
+        "path": "/benchmark",
+        "status": 200
+      }
+    ],
+    "distinctOwners": true,
+    "cookie": {
+      "httpOnly": true,
+      "secure": true,
+      "sameSite": "Lax"
+    },
+    "otherVisitorRunStatus": 403,
+    "otherVisitorRunListed": false,
+    "forgedOriginStatus": 403,
+    "maintenanceWithoutSecretStatus": 401,
+    "scope": "Actual public HTTPS requests. Session values and owner identifiers withheld. No payment or AI search created."
+  },
+  "physicalPhone": {
+    "scope": "USER-REPORTED public HTTPS result, distinct from independent provider checks",
+    "dateHongKong": "2026-10-04",
+    "reportedResult": "Purchase confirmed.",
+    "device": "Not supplied",
+    "browser": "Not supplied"
+  },
+  "limitations": [
+    "Synthetic products, merchant warranties and orders",
+    "No HKT, Clubpoints account or government eID connection",
+    "No human comparison study",
+    "Snapshot ledger serializes the bounded prototype",
+    "Provider refund success does not prove bank posting"
+  ]
+}

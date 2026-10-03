@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-03T17:01:43.789Z",
+  "exportedAt": "2026-10-03T18:11:21.822Z",
   "files": [
     {
       "path": ".env.example",
@@ -15,7 +15,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "ce953ce3de3adbdd7d1f1364285ca0b1068e099a49cf17cd1d25381f00bcbbf2"
+      "sha256": "cb261f3bc3db509c7a83575d10cb5dcc20d89dc99caa89b0be2aeb542de4dae7"
     },
     {
       "path": "app/api/[...path]/route.ts",
@@ -36,6 +36,10 @@
     {
       "path": "app/consent-art.tsx",
       "sha256": "01856d750eb31beae488e5c95ad2865a0a974b48c436047b25cad94036c8cee8"
+    },
+    {
+      "path": "app/demo/page.tsx",
+      "sha256": "c4eef61a9557e4e5a03880e97def1c31509349a345a43e5bdbfa599900580030"
     },
     {
       "path": "app/evidence/page.tsx",
@@ -63,7 +67,7 @@
     },
     {
       "path": "app/globals.css",
-      "sha256": "060db4f665905249d69716d7263cfafc40547d2f91fb8916934ad2568126c8a3"
+      "sha256": "721edfa70f79f6ac5ad935140a3567efbc42bde8c40d4b5811ec81560bd91732"
     },
     {
       "path": "app/icon.svg",
@@ -75,7 +79,7 @@
     },
     {
       "path": "app/page.tsx",
-      "sha256": "9dc73af280f3662156370e7694d8bdbc16ebd4b9156671cc584e8926fa5742a4"
+      "sha256": "21856493d1d28db998a1d841327910db30ebb8487f8ad1beaaae1f8dbe4429d2"
     },
     {
       "path": "app/product-scene.tsx",
@@ -95,15 +99,31 @@
     },
     {
       "path": "docs/JUDGE_GUIDE.md",
-      "sha256": "8e769b07c3c37f4737a7f223b4886f885e05f4c8d7ddb76ffaea35db5b843cca"
+      "sha256": "7ca8ceb2d09e1d4f48e719d546247c585c958d44054dcbccd65af2da97ecd6a7"
+    },
+    {
+      "path": "docs/SUBMISSION.md",
+      "sha256": "88dd577457bff255b2f17c15b7adab47fea86e87a9d65d54bdd15bd01e3714ae"
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "53419251c5439b5d84aacb5b8f7526cea18f03b9d2e5e51d5eb0aadbf6b3c087"
+      "sha256": "1bdf1703adf14595bd2543fe23660d7f1b94ed914a1caab9a822adc2dc5f2000"
+    },
+    {
+      "path": "docs/VIDEO.md",
+      "sha256": "133395f4f83a1f4b33a549577a4cac802eef0979b8310227e0ac43c5e963f066"
+    },
+    {
+      "path": "docs/cloud-acceptance.json",
+      "sha256": "96c30a886db978dea172f44545ca9ea7a3f9855b5dd3569f706bcca1c1705119"
     },
     {
       "path": "docs/cloud-ledger-validation.json",
       "sha256": "0a6c540f575ace3d317865cac1715b6b544c81df4e3714d9c9ca41828e41f43e"
+    },
+    {
+      "path": "docs/materials-validation.json",
+      "sha256": "37cdaf37da76c5673472a69c434d1191e59e6b6c11504a78d71a5b9725459a07"
     },
     {
       "path": "docs/screenshots/comparison.png",
@@ -194,12 +214,32 @@
       "sha256": "15e0a6594168098278f89b56e7b6464fef52c7e46468e31360bdb5eedc7f222a"
     },
     {
+      "path": "public/CrossCart-Demo-3min.mp4",
+      "sha256": "3c071fa9dd2f1e794fae1b27d566590609d1107e64b8c19250ffc1c46652523a"
+    },
+    {
+      "path": "public/CrossCart-Demo-English.vtt",
+      "sha256": "fcd779ea3a0002f3d0202ac13a5af6f325465780a09999ce6435bdb29d0a7606"
+    },
+    {
+      "path": "public/CrossCart-Pitch-Deck.pdf",
+      "sha256": "2be610c014436f9e326dca5767192dfe1fceb0d5e05a3dcef7a63e61f6cb398c"
+    },
+    {
+      "path": "public/CrossCart-Pitch-Deck.pptx",
+      "sha256": "9ac5dda7c5e8ff706776bdfd37e2005266b7984d5b859d8454b1fee525fe3043"
+    },
+    {
       "path": "public/consent-demo-a.webp",
       "sha256": "34715bdb0a667909a671f9fdff1542212080637458c815ea7477ac1aec5a5bdd"
     },
     {
       "path": "public/consent-paper.webp",
       "sha256": "775717b2eed49991db2260a577e540a8b66dde307f908b4e4286a7a36492e3b1"
+    },
+    {
+      "path": "public/crosscart-demo-poster.jpg",
+      "sha256": "a0ec9f7f95b2b5018e32f4682a57ab2098d5b6c41abd65acb85e82ff5c108d1d"
     },
     {
       "path": "public/crosscart-headphones.webp",
@@ -223,7 +263,7 @@
     },
     {
       "path": "scripts/prepare-publication.mjs",
-      "sha256": "de77b48949429e9846c9d64c07fc13767afc36e84a8326e126e7aaeca0fd3d2d"
+      "sha256": "fb66108d0251a11c57825ab844d6ccdbd15929831d765650347f0a8a81f7eed4"
     },
     {
       "path": "scripts/process-restart.mjs",
@@ -295,7 +335,7 @@
     },
     {
       "path": "tests/stripe-e2e/checkout.spec.ts",
-      "sha256": "06d2ac625fe06efb8ef15a118d4a99bc0601090875ff5ebef3c1193d988f449e"
+      "sha256": "28e4a3385a012fa3e3384b12aeb7425e0fcc373b5eb914174746af1d4b562606"
     },
     {
       "path": "tests/stripe-restart/pending.spec.ts",
@@ -312,10 +352,6 @@
     {
       "path": "tsconfig.json",
       "sha256": "ec61a2decf35542c4373a5077551283224910bed7190790c9419aae3897bc5c3"
-    },
-    {
-      "path": "tsconfig.tsbuildinfo",
-      "sha256": "7c67c232e54064d3caeeb0c302d67f007d2256af4c0b1219106ab905061ef94b"
     },
     {
       "path": "vercel.json",

@@ -22,4 +22,4 @@ Use the public HTTPS link in Safari or Chrome. Keep the same browser for the pay
 
 ## Evidence limits
 
-Official Stripe sandbox is real provider interaction; no real money moves. Products, sellers and orders are simulated adapters. No real retailer comparisons, HKT merchant integration, Clubpoints payout or government identity verification is claimed. Live cloud acceptance must be recorded separately from the earlier local sandbox evidence.
+Official Stripe sandbox is real provider interaction; no real money moves. Products, sellers and orders are simulated adapters. No real retailer comparisons, HKT merchant integration, Clubpoints payout or government identity verification is claimed. Public-cloud acceptance is recorded in [Validation](VALIDATION.md), separately from the earlier local sandbox evidence.

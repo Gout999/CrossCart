@@ -2,8 +2,12 @@ import { test, expect, type Page } from '@playwright/test';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { stripeClient } from '../../lib/payments';
 import type { Run } from '../../lib/types';
+import { closeCloudLedger, withLedger } from '../../lib/cloud-ledger';
+import { Commerce } from '../../lib/service';
 
 const output = process.env.CROSSCART_EVIDENCE_DIR ? `${process.env.CROSSCART_EVIDENCE_DIR}/playwright/stripe` : 'output/playwright/stripe';
+const publicCloud = process.env.CROSSCART_PUBLIC_DEMO === 'true';
+test.afterAll(async () => { if (publicCloud) await closeCloudLedger(); });
 mkdirSync(output, { recursive: true });
 
 async function confirmDeliveryDate(page: Page) {
@@ -226,7 +230,11 @@ test('live AI purchase completes on mobile viewport without browser return; offi
   await page.locator('button[type="submit"]').click();
   // APIRequestContext shares the original authenticated cookie. The success
   // document is never allowed to reach Next, so the browser cannot advance it.
-  const get = async () => await (await page.request.get(`/api/runs/${runBefore.id}`)).json() as Run;
+  // Public API polling can itself trigger continuation. Observe PostgreSQL
+  // directly without processing jobs to prove the signed webhook finishes it.
+  const get = async () => publicCloud
+    ? await withLedger(store => new Commerce(store).get(runBefore.id, runBefore.ownerId))
+    : await (await page.request.get(`/api/runs/${runBefore.id}`)).json() as Run;
   await expect.poll(async () => (await get()).status).toBe('CONFIRMED');
   await expect.poll(() => blockedReturn).toBe(true);
   await expect.poll(async () => (await get()).webhookReceipts?.filter(r => r.status === 'HANDLED').length || 0).toBeGreaterThanOrEqual(2);
@@ -256,7 +264,7 @@ test('live AI purchase completes on mobile viewport without browser return; offi
   await page.unroute(`${origin}/?run=**`); await page.goto(`/?run=${runBefore.id}`);
   await expect(page.getByRole('heading', { name: 'Purchase confirmed.', exact: true })).toBeVisible();
   await evidence(page, 'mobile-no-return', runBefore); await providerEvidence(settled, 'mobile-no-return');
-  writeFileSync(`${output}/webhook-official.json`, JSON.stringify({ checkedAt: new Date().toISOString(), scope: 'Actual Stripe CLI deliveries of official events tied to this new Checkout; concurrent durable worker polling', runId: settled.id, paymentId: settled.paymentId, sessionId: settled.sessionId, successReturnBlocked: blockedReturn, settledBeforeManualReload: true, shopping, events: authoritativeEvents, invalidSignatureStatus: invalid.status(), localReplay: { scope: 'LOCAL SDK-SIGNED REPLAY; not official redelivery', sourceEvent: original.id, duplicateAcknowledged: true, alteredReorderingFixtureId: reordered.id, retrievedState: 'succeeded', samePaymentAndOrder: true }, officialRedelivery: 'Not exercised: requires a registered webhook endpoint; local listener has none' }, null, 2));
+  writeFileSync(`${output}/webhook-official.json`, JSON.stringify({ checkedAt: new Date().toISOString(), scope: publicCloud ? 'Actual Stripe delivery to registered HTTPS endpoint; no browser return or CrossCart API polling before settlement' : 'Actual Stripe CLI deliveries of official events tied to this new Checkout; concurrent durable worker polling', runId: settled.id, paymentId: settled.paymentId, sessionId: settled.sessionId, successReturnBlocked: blockedReturn, settledBeforeManualReload: true, shopping, events: authoritativeEvents, invalidSignatureStatus: invalid.status(), localReplay: { scope: 'LOCAL SDK-SIGNED REPLAY; not official redelivery', sourceEvent: original.id, duplicateAcknowledged: true, alteredReorderingFixtureId: reordered.id, retrievedState: 'succeeded', samePaymentAndOrder: true }, officialRedelivery: publicCloud ? 'Not exercised in this run; registered public endpoint exists' : 'Not exercised: local listener has no registered endpoint' }, null, 2));
 });
 
 test('English live AI recommends third-party Merchant B and exact HK$1699 survives mobile Checkout return', async ({ page }) => {
