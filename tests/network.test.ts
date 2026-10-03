@@ -1,0 +1,5 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { demoOrigin } from '../scripts/network.mjs';
+test('loopback remains default; private LAN needs explicit opt-in and matching origin', () => { assert.equal(demoOrigin({}).host, '127.0.0.1'); assert.throws(() => demoOrigin({ APP_URL: 'http://172.27.190.158:3107', CROSSCART_HOST: '172.27.190.158' })); assert.equal(demoOrigin({ APP_URL: 'http://172.27.190.158:3107', CROSSCART_HOST: '172.27.190.158', CROSSCART_ENABLE_LAN: 'true' }).host, '172.27.190.158'); });
+test('wildcard/public hosts, deceptive origins and port mismatch are rejected before launch', () => { for (const host of ['0.0.0.0', '8.8.8.8', '172.33.1.1']) assert.throws(() => demoOrigin({ APP_URL: `http://${host}:3107`, CROSSCART_HOST: host, CROSSCART_ENABLE_LAN: 'true' })); for (const APP_URL of ['http://attacker.invalid:3107', 'http://127.0.0.1:9999', 'http://a:b@127.0.0.1:3107', 'http://127.0.0.1:3107?redirect=attacker']) assert.throws(() => demoOrigin({ APP_URL })); });

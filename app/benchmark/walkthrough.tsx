@@ -1,0 +1,17 @@
+'use client';
+import { useState } from 'react';
+import type { Offer } from '../../lib/types';
+type Mode = 'manual' | 'agent';
+type Result = { mode: Mode; actions: number; elapsedMs: number; merchantId: string };
+export function Benchmark({ offers }: { offers: (Offer & { failures: string[] })[] }) {
+  const [mode, setMode] = useState<Mode>(); const [page, setPage] = useState(0); const [started, setStarted] = useState(0); const [actions, setActions] = useState(0); const [results, setResults] = useState<Result[]>([]); const [error, setError] = useState('');
+  function start(value: Mode) { setMode(value); setPage(0); setStarted(performance.now()); setActions(0); setError(''); }
+  function choose(offer: Offer & { failures: string[] }) {
+    const count = actions + 1; setActions(count);
+    const failures = offer.failures;
+    if (failures.length) { setError(`That offer fails: ${failures.join(', ')}. Select the qualifying offer.`); return; }
+    setResults(previous => [...previous.filter(r => r.mode !== mode), { mode: mode!, actions: count, elapsedMs: Math.round(performance.now() - started), merchantId: offer.merchantId }]); setMode(undefined);
+  }
+  const money = (n: number) => `HK$${(n / 100).toLocaleString('en-HK')}`;
+  return <section className="guide-section benchmark"><div className="actions"><button className="secondary" onClick={() => start('manual')}>Start manual comparison</button><button onClick={() => start('agent')}>Start CrossCart comparison</button></div>{mode && <div aria-live="polite"><p className="tiny-label">{mode === 'manual' ? 'MANUAL / ONE MERCHANT AT A TIME' : 'CROSSCART / NORMALIZED COMPARISON'} · {actions} actions</p>{mode === 'manual' && page < 3 ? <article className="benchmark-offer"><h3>{offers[page].merchantName}</h3><p>Item {money(offers[page].subtotalMinor)} + delivery {money(offers[page].shippingMinor)} = <strong>{money(offers[page].totalMinor)}</strong></p><p>Warranty: {offers[page].warranty} · Delivery: {offers[page].deliveryDate}</p><button onClick={() => { setPage(page + 1); setActions(actions + 1); }}>{page < 2 ? 'Next merchant' : 'Compare and choose'}</button></article> : <div><div className="guide-table-wrap"><table><thead><tr><th>Merchant</th><th>Total</th><th>Warranty</th><th>Delivery</th>{mode === 'agent' && <th>Rules</th>}</tr></thead><tbody>{offers.map(offer => <tr key={offer.merchantId}><th>{offer.merchantName}</th><td>{money(offer.totalMinor)}</td><td>{offer.warranty}</td><td>{offer.deliveryDate}</td>{mode === 'agent' && <td>{offer.failures.join(', ') || 'Eligible'}</td>}</tr>)}</tbody></table></div><div className="actions">{offers.map(offer => <button className="secondary" key={offer.merchantId} onClick={() => choose(offer)}>Select {offer.merchantName}</button>)}</div></div>}{error && <p role="alert" className="error">{error}</p>}</div>}{results.length > 0 && <div className="guide-table-wrap"><table aria-label="Your comparison observations"><thead><tr><th>Walkthrough</th><th>Actual actions</th><th>Browser elapsed</th><th>Same choice</th></tr></thead><tbody>{results.map(result => <tr key={result.mode}><th>{result.mode === 'manual' ? 'Manual layout' : 'CrossCart layout'}</th><td>{result.actions}</td><td>{(result.elapsedMs / 1000).toFixed(1)} s</td><td>Merchant A · HK$1,749</td></tr>)}</tbody></table><p className="fine-print">Your current browser observations. Times are not an external user study. Extra incorrect selections count as additional actions. No payment was authorized.</p></div>}</section>;
+}

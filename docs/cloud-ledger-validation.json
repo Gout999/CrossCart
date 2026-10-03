@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-10-03T16:58:13.131Z",
+  "scope": "Actual PostgreSQL persistence/concurrency with explicitly LOCAL simulated payments; not Stripe",
+  "concurrentWorkerAndDuplicateCommit": "PASS",
+  "transactionRollback": "PASS",
+  "ownership": "PASS",
+  "separateProcessReopen": "PASS",
+  "cases": [
+    {
+      "id": "bba824f7-ec26-4eff-ba4d-7b0758df60ff",
+      "status": "CONFIRMED",
+      "payment": "CAPTURED",
+      "order": "CONFIRMED",
+      "recovery": "NONE"
+    },
+    {
+      "id": "82c9d3bb-6480-4274-8fcf-b8ae52e22148",
+      "status": "BLOCKED",
+      "payment": "NOT_STARTED",
+      "order": "NOT_CREATED",
+      "recovery": "NONE"
+    },
+    {
+      "id": "9dcd476f-c710-49e4-a394-158baa12d76f",
+      "status": "RECOVERED",
+      "payment": "CAPTURED",
+      "order": "FAILED",
+      "recovery": "REFUNDED"
+    }
+  ]
+}

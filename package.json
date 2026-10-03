@@ -1,0 +1,55 @@
+{
+  "name": "crosscart",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "node --env-file-if-exists=.env.local scripts/serve.mjs dev",
+    "start": "node --env-file-if-exists=.env.local scripts/serve.mjs start",
+    "worker": "node --env-file-if-exists=.env.local --import tsx scripts/worker.ts",
+    "stripe:configure": "node --env-file-if-exists=.env.local --import tsx scripts/stripe-listener.ts --configure-only",
+    "stripe:listen": "node --env-file-if-exists=.env.local --import tsx scripts/stripe-listener.ts",
+    "build": "node scripts/build.mjs",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test:unit": "node --import tsx --test tests/unit.test.ts",
+    "test:integration": "node --import tsx --test tests/integration.test.ts",
+    "test:stripe-contract": "node --import tsx --test tests/stripe-contract.test.ts",
+    "test": "npm run test:unit && npm run test:integration && npm run test:stripe-contract && npm run test:quote && npm run test:shopping && npm run test:webhooks && npm run test:network && npm run test:cloud-boundary",
+    "test:cloud-boundary": "node --import tsx --test tests/cloud-boundary.test.ts",
+    "test:e2e": "playwright test",
+    "test:e2e:stripe": "node --env-file-if-exists=.env.local node_modules/@playwright/test/cli.js test --config playwright.stripe.config.ts",
+    "test:restart": "node scripts/process-restart.mjs",
+    "evidence": "node --import tsx scripts/evidence.ts",
+    "verify:stripe": "node --env-file-if-exists=.env.local --import tsx scripts/verify-stripe.ts",
+    "test:shopping": "node --import tsx --test tests/shopping.test.ts",
+    "test:quote": "node --import tsx --test tests/quote-gate.test.ts",
+    "test:webhooks": "node --import tsx --test tests/webhooks.test.ts",
+    "verify:ai": "node --env-file-if-exists=.env.local --import tsx scripts/verify-ai.ts",
+    "test:network": "node --import tsx --test tests/network.test.ts",
+    "demo:fresh": "node --env-file-if-exists=.env.local --import tsx scripts/fresh-demo.ts",
+    "test:pending-restart": "node --env-file-if-exists=.env.local node_modules/@playwright/test/cli.js test --config playwright.restart.config.ts",
+    "verify:ai-warranty": "node --env-file-if-exists=.env.local --import tsx scripts/verify-ai-warranty.ts"
+  },
+  "dependencies": {
+    "@phosphor-icons/react": "2.1.10",
+    "next": "16.3.8",
+    "postgres": "3.4.9",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "stripe": "23.0.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.6.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.3.8",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3"
+  }
+}
