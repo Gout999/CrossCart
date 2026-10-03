@@ -8,16 +8,16 @@ export default function DemoPage() {
     <p className="eyebrow">HacKU / FINTECH: AGENTIC COMMERCE</p>
     <h1>The demo.<br/><em>The details.</em></h1>
     <p className="guide-lead">A three-minute walkthrough of exact purchase approval, official Stripe test Checkout, a blocked transaction, audit evidence and the same-task comparison.</p>
-    <video className="demo-film" controls playsInline preload="metadata" poster="/crosscart-demo-poster.jpg" aria-label="CrossCart three-minute recorded demonstration">
-      <source src="/CrossCart-Demo-3min.mp4" type="video/mp4" />
-      <track kind="captions" src="/CrossCart-Demo-English.vtt" srcLang="en" label="English" />
+    <video className="demo-film" controls playsInline preload="metadata" poster="/crosscart-demo-poster.jpg?v=2" aria-label="CrossCart three-minute recorded demonstration">
+      <source src="/CrossCart-Demo-3min.mp4?v=2" type="video/mp4" />
+      <track kind="captions" src="/CrossCart-Demo-English.vtt?v=2" srcLang="en" label="English" />
       Your browser does not support this video. <a href="/CrossCart-Demo-3min.mp4">Download the recorded demo</a>.
     </video>
-    <p className="fine-print">Edited recording of the public HTTPS demo, with generated English narration. Stripe test mode only. Products, merchant offers and orders are synthetic. The recovery screenshot comes from an independently verified public Stripe test case.</p>
+    <p className="fine-print">Edited recording of the public HTTPS demo, with Andrew Neural English narration and synchronized on-screen captions. Stripe test mode only. Products, merchant offers and orders are synthetic. The recovery screenshot comes from an independently verified public Stripe test case.</p>
     <section className="guide-section">
       <h2>Pitch deck</h2>
-      <p>The eleven-slide deck covers the problem, agent workflow, exact consent, transaction results, comparison benchmark, dated financial sources and proposed HKT pilot.</p>
-      <div className="materials-links"><a href="/CrossCart-Pitch-Deck.pdf" target="_blank" rel="noopener noreferrer">View pitch deck PDF ↗</a><a href="/CrossCart-Pitch-Deck.pptx" download>Download editable PowerPoint ↓</a></div>
+      <p>The ten-slide deck covers the problem, shopping workflow, exact approval, completed and blocked transactions, refund recovery, architecture, validation evidence and proposed HKT pilot.</p>
+      <div className="materials-links"><a href="/CrossCart-Pitch-Deck.pdf" target="_blank" rel="noopener noreferrer">View pitch deck PDF ↗</a><a href="/CrossCart-Pitch-Deck.pptx" download>Download PowerPoint ↓</a></div>
     </section>
     <section className="guide-section">
       <h2>Try the working transactions</h2>

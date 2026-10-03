@@ -1,5 +1,5 @@
 {
-  "exportedAt": "2026-10-03T18:11:21.822Z",
+  "exportedAt": "2026-10-03T19:21:52.486Z",
   "files": [
     {
       "path": ".env.example",
@@ -15,7 +15,7 @@
     },
     {
       "path": "README.md",
-      "sha256": "cb261f3bc3db509c7a83575d10cb5dcc20d89dc99caa89b0be2aeb542de4dae7"
+      "sha256": "2c3846a3492efacb2fd6ee5ebcdfd3e321eac9f259274f98f852a3b739318bfe"
     },
     {
       "path": "app/api/[...path]/route.ts",
@@ -39,7 +39,7 @@
     },
     {
       "path": "app/demo/page.tsx",
-      "sha256": "c4eef61a9557e4e5a03880e97def1c31509349a345a43e5bdbfa599900580030"
+      "sha256": "5d46de13941b291de51b0aead9d64cfe35383981c1d0e54bf98b7edebd273cab"
     },
     {
       "path": "app/evidence/page.tsx",
@@ -103,15 +103,15 @@
     },
     {
       "path": "docs/SUBMISSION.md",
-      "sha256": "88dd577457bff255b2f17c15b7adab47fea86e87a9d65d54bdd15bd01e3714ae"
+      "sha256": "d53b0613d3d1ed1a744bf7a457d7a900a7b838995609ff8699e7ca14662266cb"
     },
     {
       "path": "docs/VALIDATION.md",
-      "sha256": "1bdf1703adf14595bd2543fe23660d7f1b94ed914a1caab9a822adc2dc5f2000"
+      "sha256": "104c3a22e21a747aa6a52407d02b33c16a2d925b68b0c71be833621f32634bca"
     },
     {
       "path": "docs/VIDEO.md",
-      "sha256": "133395f4f83a1f4b33a549577a4cac802eef0979b8310227e0ac43c5e963f066"
+      "sha256": "dc68950f3064251ba884298f940e8edc09d7304f55a69e4958c15b3679a214af"
     },
     {
       "path": "docs/cloud-acceptance.json",
@@ -123,7 +123,7 @@
     },
     {
       "path": "docs/materials-validation.json",
-      "sha256": "37cdaf37da76c5673472a69c434d1191e59e6b6c11504a78d71a5b9725459a07"
+      "sha256": "73a4f722bd7f2defe26422382d8c8b31af8589411a76523b6d4057ea5bcbb09b"
     },
     {
       "path": "docs/screenshots/comparison.png",
@@ -215,19 +215,19 @@
     },
     {
       "path": "public/CrossCart-Demo-3min.mp4",
-      "sha256": "3c071fa9dd2f1e794fae1b27d566590609d1107e64b8c19250ffc1c46652523a"
+      "sha256": "61f2ee4c7656b73f6273628816eb4c95469739b163845df160c8f241ce4863dc"
     },
     {
       "path": "public/CrossCart-Demo-English.vtt",
-      "sha256": "fcd779ea3a0002f3d0202ac13a5af6f325465780a09999ce6435bdb29d0a7606"
+      "sha256": "62ea2f84f4d2f18c685728ac964d7bdbf447503f95e198f7c11953d2a70977e7"
     },
     {
       "path": "public/CrossCart-Pitch-Deck.pdf",
-      "sha256": "2be610c014436f9e326dca5767192dfe1fceb0d5e05a3dcef7a63e61f6cb398c"
+      "sha256": "caee7388bce27b5bf90f378d9e6911899eff246c52f112adf08b79a0535008e2"
     },
     {
       "path": "public/CrossCart-Pitch-Deck.pptx",
-      "sha256": "9ac5dda7c5e8ff706776bdfd37e2005266b7984d5b859d8454b1fee525fe3043"
+      "sha256": "040c607735ee47bf974ad57ec6de49763567caf81298f29491175ac772b9ca35"
     },
     {
       "path": "public/consent-demo-a.webp",
@@ -239,7 +239,7 @@
     },
     {
       "path": "public/crosscart-demo-poster.jpg",
-      "sha256": "a0ec9f7f95b2b5018e32f4682a57ab2098d5b6c41abd65acb85e82ff5c108d1d"
+      "sha256": "94f20fc14ce9dbfaf469d66532e455ea8350186181a1dd39571708a468cafe46"
     },
     {
       "path": "public/crosscart-headphones.webp",

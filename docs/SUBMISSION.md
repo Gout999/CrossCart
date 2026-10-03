@@ -8,7 +8,7 @@
 | Live demo | https://crosscart.vercel.app/ |
 | Recorded demonstration | https://crosscart.vercel.app/demo |
 | Pitch Deck PDF | https://crosscart.vercel.app/CrossCart-Pitch-Deck.pdf |
-| Editable PowerPoint | https://crosscart.vercel.app/CrossCart-Pitch-Deck.pptx |
+| PowerPoint deck | https://crosscart.vercel.app/CrossCart-Pitch-Deck.pptx |
 
 Select **FinTech: Agentic Commerce (Sponsored by The Club by HKT)** as the problem statement for The Club by HKT Innovation Award.
 

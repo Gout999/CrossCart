@@ -6,7 +6,7 @@ CrossCart is an AI shopping agent with a verifiable payment boundary. It compare
 
 Built for **HacKU 2026 — FinTech: Agentic Commerce (Sponsored by The Club by HKT)**.
 
-**[Live demo](https://crosscart.vercel.app/)** · **[3-minute video](https://crosscart.vercel.app/demo)** · **[Pitch deck PDF](https://crosscart.vercel.app/CrossCart-Pitch-Deck.pdf)** · **[Editable deck](https://crosscart.vercel.app/CrossCart-Pitch-Deck.pptx)**
+**[Live demo](https://crosscart.vercel.app/)** · **[3-minute video](https://crosscart.vercel.app/demo)** · **[Pitch deck PDF](https://crosscart.vercel.app/CrossCart-Pitch-Deck.pdf)** · **[PowerPoint deck](https://crosscart.vercel.app/CrossCart-Pitch-Deck.pptx)**
 
 [Judge guide](https://crosscart.vercel.app/evidence) · [Manual comparison](https://crosscart.vercel.app/benchmark) · [Submission fields](docs/SUBMISSION.md)
 

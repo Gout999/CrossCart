@@ -28,8 +28,8 @@ The 34 SDK contracts use localhost fixtures. They are not official Stripe eviden
 
 ## Submission assets and remaining boundary
 
-An eleven-slide editable pitch deck and PDF accompany the recorded demonstration. Sources and implementation limits appear in slide notes and on relevant slides. Required tables remain native editable tables. PPTX package/import checks passed, and every slide/PDF page was visually reviewed. PowerPoint itself was not opened for this review.
+The supplied ten-slide ImageGen pitch deck replaces the initial deck. Its image-based design is preserved; native text overlays update measured evidence, observation dates and public links. Most slide content remains raster imagery. Sources and implementation limits appear in slide notes and on relevant slides. PPTX package/import checks passed; the native LibreOffice PDF was reviewed on every page. PowerPoint itself was not opened for this review.
 
-The recording uses actual public HTTPS purchase, blocked-transaction, benchmark and guide interactions, with generated English narration. Its audit excerpt and refund screenshot come from independently verified public Stripe test cases. Browser benchmark times include scripted pauses and are not human-study findings. See [recording transcript](VIDEO.md).
+The recording uses actual public HTTPS purchase, blocked-transaction, benchmark and guide interactions, with Andrew Multilingual Neural English narration, voice-timed on-screen captions, focused zooms and frame-driven paper transitions. Its audit excerpt and refund screenshot come from independently verified public Stripe test cases. Browser benchmark times include scripted pauses and are not human-study findings. See [recording transcript](VIDEO.md).
 
 Creating and publishing deliverables does **not** submit the HacKU final form. A form receipt has not been obtained. HKT/Club merchant APIs, loyalty accounts, legal identity and real settlement remain outside the prototype.

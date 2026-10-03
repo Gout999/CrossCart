@@ -1,47 +1,57 @@
 # CrossCart recorded demonstration
 
-Recorded from the public HTTPS demo on 4 October 2026 Hong Kong time. Edited to 180 seconds at 1920×1080 / 30 fps, with generated English narration. Chapter captions and an English WebVTT track accompany the footage.
+Recorded from the public HTTPS demo on 4 October 2026 Hong Kong time. Edited with Remotion to 180 seconds at 1920×1080 / 30 fps.
+
+## Voice, captions and editing
+
+The revised narration uses **en-US-AndrewMultilingualNeural** via [edge-tts](https://github.com/rany2/edge-tts), which accesses Microsoft Edge online text-to-speech without an API key. No paid voice subscription was used. The script uses shorter spoken clauses and questions to introduce the blocked and recovery scenarios.
+
+English captions are burned into the video and are available separately as WebVTT. They use the voice stream's word-boundary timestamps, grouped into 67 phrases at meaningful clause boundaries, with punctuation and at most two lines. Captions occupy a dedicated lower band, clear of the transaction evidence. The native player caption track is optional because captions already appear in the film.
+
+Frame-driven Remotion animations add focused zooms on approval and blocked-payment details, amount and rule callouts, entrance motion, nine paper transitions and a gently rotating closing card. Original browser footage supplies the transaction actions; these animations do not fabricate app behavior. The introduction uses the supplied pitch-deck cover as an illustrative visual.
 
 The purchase and blocked-transaction clips are actual public app interactions. Stripe billing details and the card are synthetic test data. The audit excerpt and refund screenshot are from independently verified public Stripe test cases, identified in [cloud acceptance](cloud-acceptance.json). No live merchant, goods, points payout or real money is represented.
 
-## 1. Intro (12 seconds)
+## Narration
 
-CrossCart is a shopping agent built for HacKU agentic commerce. It compares offers, asks you to approve one exact deal, and keeps payment and recovery traceable.
+### 1. Intro (12 seconds)
 
-## 2. Compare (20 seconds)
+This is CrossCart. Let AI compare. You keep the final say. A shopping agent that asks you to approve one exact deal, before any payment.
 
-The buyer asks in Cantonese for headphones below eighteen hundred Hong Kong dollars, with official warranty and delivery within two days. The agent interprets the request, and the buyer confirms it. Merchant B costs less, but its third-party warranty fails the requirement.
+### 2. Compare (20 seconds)
 
-## 3. Approval (17 seconds)
+First, the buyer asks in Cantonese for headphones under eighteen hundred Hong Kong dollars, with official warranty and delivery within two days. CrossCart interprets the request, and the buyer confirms it. The cheapest offer has a third-party warranty. So it fails the requirement.
 
-Merchant A meets the confirmed requirements at seventeen forty-nine, including delivery. The approval records the exact product, seller, payee, amount and terms. The AI uses read-only shopping tools. Server rules control payment authority.
+### 3. Approval (17 seconds)
 
-## 4. Checkout (20 seconds)
+Merchant A meets the requirements at seventeen forty-nine, including delivery. Now the buyer approves this exact deal. Product, seller, payee, amount and terms are recorded together. The agent compares. Server rules control the payment.
 
-The buyer opens official Stripe test Checkout and enters synthetic test details. Stripe authorizes the exact approved amount. CrossCart then rechecks the mandate and merchant quote before capture. This is the real Stripe sandbox, with no real money or goods.
+### 4. Checkout (20 seconds)
 
-## 5. Result (16 seconds)
+Next, the buyer opens official Stripe test Checkout and enters synthetic test details. Stripe authorizes the approved amount. Before capture, CrossCart checks the mandate and merchant quote again. This is the actual Stripe sandbox. No real money or goods move.
 
-The result shows captured payment and a confirmed demo order as separate states. Judge evidence records the mandate, approval, rules and verified webhook receipts. A browser return message alone never establishes payment success.
+### 5. Result (16 seconds)
 
-## 6. Blocked (22 seconds)
+Payment is captured. The demo order is confirmed. These are separate states, with a traceable record. You can inspect the buyer's approval and the rules checked before payment and capture. The browser message alone isn't payment proof.
 
-Now the approved price changes from seventeen forty-nine to eighteen forty-nine. CrossCart blocks the purchase before opening Checkout. Payment remains not executed. The original approval stays unchanged, and the buyer can inspect the rejected amount and rule decision.
+### 6. Blocked (22 seconds)
 
-## 7. Recovery (13 seconds)
+What if the price changes? The buyer approved seventeen forty-nine. The current offer is eighteen forty-nine. CrossCart stops before Checkout. Payment is not executed. The original approval stays unchanged. A different deal needs a fresh decision.
 
-A third verified scenario captures payment, then simulates merchant order failure. The order stays failed. CrossCart retrieves the same-charge refund from Stripe before showing refund confirmed.
+### 7. Recovery (13 seconds)
 
-## 8. Benchmark (22 seconds)
+And if the merchant fails after capture? The order stays failed. CrossCart tracks recovery separately, and retrieves the same-charge refund from Stripe. Only then does it show refund confirmed.
 
-The comparison benchmark uses the same three synthetic offers and the same final choice. The manual layout requires four navigation actions. The CrossCart table requires one selection. It records browser time, but this is a comparison-stage walkthrough, with shared approval and Checkout excluded.
+### 8. Benchmark (22 seconds)
 
-## 9. Sources (20 seconds)
+Now compare the same task. Three offers. The same choice. The manual layout takes four navigation actions. CrossCart takes one selection. This measures the comparison stage, with shared approval and Checkout excluded. Browser time is visible, but it isn't a human study.
 
-The judge guide links dated primary sources for processing fees, card rewards and Clubpoints. The domestic-card fee estimate belongs to the merchant. Reward eligibility is unverified, so no rebate or points discount reduces the approved buyer total.
+### 9. Sources (20 seconds)
 
-## 10. Close (18 seconds)
+The judge guide links dated primary sources for processing fees, card rewards and Clubpoints. The fee estimate belongs to the merchant. Reward eligibility is unverified, so no rebate or points discount is subtracted from the buyer's approved total.
 
-The demo uses Vercel HTTPS, a persistent Neon ledger and separate visitor sessions. A signed webhook completed an order with no browser return. Products and orders remain synthetic. HKT integration is the next proposed step.
+### 10. Close (18 seconds)
+
+The public demo runs on Vercel HTTPS, with a persistent Neon ledger. A signed webhook completed an order even without the browser return. Products and orders are synthetic. HKT integration is the next proposed step.
 
 Browser timings in the comparison recording include scripted pauses. They are individual walkthrough observations, not human-study outcomes. The comparison action count excludes shared intent, approval and Checkout.

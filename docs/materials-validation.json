@@ -1,5 +1,5 @@
 {
-  "verifiedAt": "2026-10-03T18:09:25.676Z",
+  "verifiedAt": "2026-10-03T19:21:52.252482+00:00",
   "video": {
     "videoDurationSeconds": 180,
     "containerDurationSeconds": 180.011,
@@ -8,39 +8,51 @@
     "videoCodec": "h264",
     "audioCodec": "aac",
     "fullDecode": "PASS",
-    "source": "Edited actual public HTTPS browser recording; generated English narration; recovery uses an independently verified public Stripe screenshot"
+    "voice": "en-US-AndrewMultilingualNeural via edge-tts; no paid subscription or API key",
+    "captionPhrases": 67,
+    "captionMaxLines": 2,
+    "captionTimingAndScriptAlignment": "PASS",
+    "captionSingleWordCues": 0,
+    "source": "Edited actual public HTTPS browser recording; neural English narration; focused zooms, callouts, nine Remotion paper transitions; illustrative deck cover; audit and recovery from independently verified public Stripe cases"
   },
   "deck": {
-    "slides": 11,
+    "slides": 10,
+    "suppliedDesign": "CrossCart_ImageGen_PitchDeck.pptx",
+    "contentType": "Image-based slides with native evidence, date and public-link corrections",
     "pptxPackageIntegrity": "PASS",
-    "nativePdfPagesVisuallyReviewed": 11,
-    "powerPointApplicationReview": "Not performed"
+    "firstPartyImport": "PASS",
+    "nativePdfPagesVisuallyReviewed": 10,
+    "powerPointApplicationReview": "Not performed",
+    "geometryWarnings": {
+      "count": 2,
+      "assessment": "Intentional old-raster number masks overlap label backgrounds on slide 9; rendered glyphs and labels are separate and readable."
+    }
   },
   "files": [
     {
       "path": "public/CrossCart-Demo-3min.mp4",
-      "bytes": 10902820,
-      "sha256": "3c071fa9dd2f1e794fae1b27d566590609d1107e64b8c19250ffc1c46652523a"
+      "bytes": 28589477,
+      "sha256": "61f2ee4c7656b73f6273628816eb4c95469739b163845df160c8f241ce4863dc"
     },
     {
       "path": "public/CrossCart-Demo-English.vtt",
-      "bytes": 3557,
-      "sha256": "fcd779ea3a0002f3d0202ac13a5af6f325465780a09999ce6435bdb29d0a7606"
+      "bytes": 4607,
+      "sha256": "62ea2f84f4d2f18c685728ac964d7bdbf447503f95e198f7c11953d2a70977e7"
     },
     {
       "path": "public/crosscart-demo-poster.jpg",
-      "bytes": 69836,
-      "sha256": "a0ec9f7f95b2b5018e32f4682a57ab2098d5b6c41abd65acb85e82ff5c108d1d"
+      "bytes": 211770,
+      "sha256": "94f20fc14ce9dbfaf469d66532e455ea8350186181a1dd39571708a468cafe46"
     },
     {
       "path": "public/CrossCart-Pitch-Deck.pdf",
-      "bytes": 536838,
-      "sha256": "2be610c014436f9e326dca5767192dfe1fceb0d5e05a3dcef7a63e61f6cb398c"
+      "bytes": 2597867,
+      "sha256": "caee7388bce27b5bf90f378d9e6911899eff246c52f112adf08b79a0535008e2"
     },
     {
       "path": "public/CrossCart-Pitch-Deck.pptx",
-      "bytes": 881729,
-      "sha256": "9ac5dda7c5e8ff706776bdfd37e2005266b7984d5b859d8454b1fee525fe3043"
+      "bytes": 17592986,
+      "sha256": "040c607735ee47bf974ad57ec6de49763567caf81298f29491175ac772b9ca35"
     }
   ]
 }

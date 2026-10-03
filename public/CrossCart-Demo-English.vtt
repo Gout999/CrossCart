@@ -1,137 +1,272 @@
 WEBVTT
 
 1
-00:00:00.000 --> 00:00:03.953
-CrossCart is a shopping agent built for HacKU agentic commerce.
+00:00:00.500 --> 00:00:01.425
+This is CrossCart.
 
 2
-00:00:03.953 --> 00:00:10.278
-It compares offers, asks you to approve one exact deal, and keeps payment and recovery traceable.
+00:00:01.838 --> 00:00:03.088
+Let AI compare.
 
 3
-00:00:12.000 --> 00:00:20.039
-The buyer asks in Cantonese for headphones below eighteen hundred Hong Kong dollars, with official warranty and delivery within two days.
+00:00:03.500 --> 00:00:04.575
+You keep the final say.
 
 4
-00:00:20.039 --> 00:00:23.867
-The agent interprets the request, and the buyer confirms it.
+00:00:04.963 --> 00:00:06.525
+A shopping agent that asks you
 
 5
-00:00:23.867 --> 00:00:28.077
-Merchant B costs less, but its third-party warranty fails the requirement.
+00:00:06.600 --> 00:00:09.738
+to approve one exact deal, before any payment.
 
 6
-00:00:32.000 --> 00:00:37.256
-Merchant A meets the confirmed requirements at seventeen forty-nine, including delivery.
+00:00:12.538 --> 00:00:14.825
+First, the buyer asks in Cantonese
 
 7
-00:00:37.256 --> 00:00:42.513
-The approval records the exact product, seller, payee, amount and terms.
+00:00:14.838 --> 00:00:17.725
+for headphones under eighteen
+hundred Hong Kong dollars,
 
 8
-00:00:42.513 --> 00:00:45.380
-The AI uses read-only shopping tools.
+00:00:18.088 --> 00:00:19.188
+with official warranty
 
 9
-00:00:45.380 --> 00:00:47.769
-Server rules control payment authority.
+00:00:19.300 --> 00:00:21.125
+and delivery within two days.
 
 10
-00:00:49.000 --> 00:00:53.771
-The buyer opens official Stripe test Checkout and enters synthetic test details.
+00:00:21.513 --> 00:00:23.538
+CrossCart interprets the request,
 
 11
-00:00:53.771 --> 00:00:56.156
-Stripe authorizes the exact approved amount.
+00:00:23.950 --> 00:00:25.213
+and the buyer confirms it.
 
 12
-00:00:56.156 --> 00:01:00.132
-CrossCart then rechecks the mandate and merchant quote before capture.
+00:00:25.625 --> 00:00:27.888
+The cheapest offer has a third-party warranty.
 
 13
-00:01:00.132 --> 00:01:04.903
-This is the real Stripe sandbox, with no real money or goods.
+00:00:28.288 --> 00:00:29.713
+So it fails the requirement.
 
 14
-00:01:09.000 --> 00:01:14.483
-The result shows captured payment and a confirmed demo order as separate states.
+00:00:32.481 --> 00:00:34.275
+Merchant A meets the requirements
 
 15
-00:01:14.483 --> 00:01:19.122
-Judge evidence records the mandate, approval, rules and verified webhook receipts.
+00:00:34.333 --> 00:00:37.157
+at seventeen forty-nine, including delivery.
 
 16
-00:01:19.122 --> 00:01:22.918
-A browser return message alone never establishes payment success.
+00:00:37.516 --> 00:00:39.576
+Now the buyer approves this exact deal.
 
 17
-00:01:25.000 --> 00:01:29.723
-Now the approved price changes from seventeen forty-nine to eighteen forty-nine.
+00:00:39.958 --> 00:00:43.199
+Product, seller, payee, amount and terms
 
 18
-00:01:29.723 --> 00:01:32.728
-CrossCart blocks the purchase before opening Checkout.
+00:00:43.199 --> 00:00:44.078
+are recorded together.
 
 19
-00:01:32.728 --> 00:01:34.445
-Payment remains not executed.
+00:00:44.460 --> 00:00:45.513
+The agent compares.
 
 20
-00:01:34.445 --> 00:01:41.315
-The original approval stays unchanged, and the buyer can inspect the rejected amount and rule decision.
+00:00:45.872 --> 00:00:47.620
+Server rules control the payment.
 
 21
-00:01:47.000 --> 00:01:51.957
-A third verified scenario captures payment, then simulates merchant order failure.
+00:00:49.500 --> 00:00:53.113
+Next, the buyer opens
+official Stripe test Checkout
 
 22
-00:01:51.957 --> 00:01:53.760
-The order stays failed.
+00:00:53.525 --> 00:00:55.788
+and enters synthetic test details.
 
 23
-00:01:53.760 --> 00:01:58.718
-CrossCart retrieves the same-charge refund from Stripe before showing refund confirmed.
+00:00:56.188 --> 00:00:58.300
+Stripe authorizes the approved amount.
 
 24
-00:02:00.000 --> 00:02:05.922
-The comparison benchmark uses the same three synthetic offers and the same final choice.
+00:00:58.725 --> 00:00:59.525
+Before capture,
 
 25
-00:02:05.922 --> 00:02:08.884
-The manual layout requires four navigation actions.
+00:00:59.750 --> 00:01:02.438
+CrossCart checks the mandate
+and merchant quote again.
 
 26
-00:02:08.884 --> 00:02:11.422
-The CrossCart table requires one selection.
+00:01:02.838 --> 00:01:04.838
+This is the actual Stripe sandbox.
 
 27
-00:02:11.422 --> 00:02:18.190
-It records browser time, but this is a comparison-stage walkthrough, with shared approval and Checkout excluded.
+00:01:05.213 --> 00:01:06.913
+No real money or goods move.
 
 28
-00:02:22.000 --> 00:02:27.970
-The judge guide links dated primary sources for processing fees, card rewards and Clubpoints.
+00:01:09.500 --> 00:01:10.725
+Payment is captured.
 
 29
-00:02:27.970 --> 00:02:31.381
-The domestic-card fee estimate belongs to the merchant.
+00:01:11.125 --> 00:01:12.538
+The demo order is confirmed.
 
 30
-00:02:31.381 --> 00:02:37.778
-Reward eligibility is unverified, so no rebate or points discount reduces the approved buyer total.
+00:01:12.950 --> 00:01:14.400
+These are separate states,
 
 31
-00:02:42.000 --> 00:02:47.684
-The demo uses Vercel HTTPS, a persistent Neon ledger and separate visitor sessions.
+00:01:14.588 --> 00:01:15.650
+with a traceable record.
 
 32
-00:02:47.684 --> 00:02:52.055
-A signed webhook completed an order with no browser return.
+00:01:16.050 --> 00:01:17.775
+You can inspect the buyer's approval
 
 33
-00:02:52.055 --> 00:02:54.241
-Products and orders remain synthetic.
+00:01:17.950 --> 00:01:20.938
+and the rules checked before payment and capture.
 
 34
-00:02:54.241 --> 00:02:57.302
+00:01:21.350 --> 00:01:23.913
+The browser message alone isn't payment proof.
+
+35
+00:01:25.488 --> 00:01:26.700
+What if the price changes?
+
+36
+00:01:27.125 --> 00:01:29.388
+The buyer approved seventeen forty-nine.
+
+37
+00:01:29.800 --> 00:01:32.413
+The current offer is eighteen forty-nine.
+
+38
+00:01:32.825 --> 00:01:34.650
+CrossCart stops before Checkout.
+
+39
+00:01:35.050 --> 00:01:36.675
+Payment is not executed.
+
+40
+00:01:37.063 --> 00:01:39.963
+The original approval stays unchanged.
+
+41
+00:01:40.363 --> 00:01:42.588
+A different deal needs a fresh decision.
+
+42
+00:01:47.493 --> 00:01:49.750
+And if the merchant fails after capture?
+
+43
+00:01:50.132 --> 00:01:51.196
+The order stays failed.
+
+44
+00:01:51.567 --> 00:01:53.557
+CrossCart tracks recovery separately,
+
+45
+00:01:53.963 --> 00:01:56.486
+and retrieves the same-charge refund from Stripe.
+
+46
+00:01:56.856 --> 00:01:58.777
+Only then does it show refund confirmed.
+
+47
+00:02:00.488 --> 00:02:02.088
+Now compare the same task.
+
+48
+00:02:02.563 --> 00:02:03.388
+Three offers.
+
+49
+00:02:03.788 --> 00:02:04.775
+The same choice.
+
+50
+00:02:05.188 --> 00:02:08.438
+The manual layout takes four navigation actions.
+
+51
+00:02:08.850 --> 00:02:10.525
+CrossCart takes one selection.
+
+52
+00:02:10.925 --> 00:02:12.813
+This measures the comparison stage,
+
+53
+00:02:13.100 --> 00:02:15.850
+with shared approval and Checkout excluded.
+
+54
+00:02:16.275 --> 00:02:18.213
+Browser time is visible,
+
+55
+00:02:18.613 --> 00:02:20.013
+but it isn't a human study.
+
+56
+00:02:22.500 --> 00:02:24.750
+The judge guide links dated primary sources
+
+57
+00:02:24.750 --> 00:02:28.375
+for processing fees, card rewards and Clubpoints.
+
+58
+00:02:28.775 --> 00:02:30.938
+The fee estimate belongs to the merchant.
+
+59
+00:02:31.338 --> 00:02:34.025
+Reward eligibility is unverified,
+
+60
+00:02:34.425 --> 00:02:37.263
+so no rebate or points discount is subtracted
+
+61
+00:02:37.263 --> 00:02:38.750
+from the buyer's approved total.
+
+62
+00:02:42.513 --> 00:02:46.013
+The public demo runs on Vercel HTTPS,
+
+63
+00:02:46.250 --> 00:02:47.875
+with a persistent Neon ledger.
+
+64
+00:02:48.275 --> 00:02:50.513
+A signed webhook completed an order
+
+65
+00:02:50.700 --> 00:02:52.463
+even without the browser return.
+
+66
+00:02:52.875 --> 00:02:54.763
+Products and orders are synthetic.
+
+67
+00:02:55.150 --> 00:02:57.950
 HKT integration is the next proposed step.
