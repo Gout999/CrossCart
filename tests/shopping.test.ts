@@ -6,6 +6,7 @@ import { Commerce } from '../lib/service';
 import { DemoMerchant } from '../lib/merchants';
 import { dateInHongKong, deliveryDefault, reasons } from '../lib/policy';
 import type { Offer } from '../lib/types';
+import { requestExamples, revisionExamples } from '../lib/request-examples';
 const text = 'HK$1800 headphones official warranty within 2 days';
 const fields = { category: 'headphones', currency: 'hkd', budgetMinor: 180000, officialWarranty: true, deliveryBefore: deliveryDefault() };
 function offline(t: TestContext) { const previous = { ...process.env }; delete process.env.AI_API_KEY; delete process.env.AI_MODEL; t.after(() => { process.env = previous; }); const store = new Store(':memory:'); t.after(() => store.close()); return { store, shop: new Shopping(store) }; }
@@ -75,4 +76,71 @@ test('old mandate and Checkout references never authorize a new revision purchas
   assert.throws(() => commerce.commit(second.id, 'buyer'), /Explicit approval required/);
   assert.equal(second.sessionId, undefined); assert.equal(second.paymentId, undefined); assert.equal(second.approval, undefined); assert.deepEqual(b.comparison!.eligibleOfferIds, []);
   assert.equal(commerce.get(first.id).sessionId, 'cs_old_revision_fixture'); assert.equal(store.list('local_payment').length, 0);
+});
+
+const exampleResults = {
+  'official-value': { budget: 180000, official: true, days: 2, first: 'demo_offer_a_v1', priority: 'lowest_total' },
+  'lowest-price': { budget: 175000, official: false, days: 2, first: 'demo_offer_b_v1', priority: 'lowest_total' },
+  'fastest-arrival': { budget: 190000, official: true, days: 3, first: 'demo_offer_c_v1', priority: 'fastest_delivery' },
+  'gift-tomorrow': { budget: 190000, official: true, days: 1, first: 'demo_offer_c_v1', priority: 'lowest_total' },
+  'strict-budget': { budget: 160000, official: true, days: 2, first: undefined, priority: 'lowest_total' },
+  'exact-approval': { budget: 190000, official: true, days: 2, first: 'demo_offer_a_v1', priority: 'lowest_total' },
+};
+for (const example of requestExamples) for (const language of ['en', 'zh'] as const) {
+  test(`${language} request example ${example.id} yields its actual constraints and eligible recommendation without AI`, async t => {
+    const { shop, store } = offline(t); const expected = exampleResults[example.id];
+    const d = await shop.draft('buyer', example.request[language]); const p = d.proposal;
+    assert.equal(p.category, 'headphones'); assert.equal(p.budgetMinor, expected.budget); assert.equal(p.officialWarranty, expected.official);
+    assert.equal(p.deliveryBefore, dateInHongKong(new Date(Date.now() + expected.days * 86400000)));
+    assert.deepEqual(p.unresolvedQuestions, []); assert.equal(p.softPreferences[0], expected.priority);
+    const c = await shop.confirm(d.id, 'buyer', { category: p.category, currency: p.currency!, budgetMinor: p.budgetMinor!, officialWarranty: p.officialWarranty!, deliveryBefore: p.deliveryBefore! });
+    assert.equal(c.comparison!.recommendation.rankedOfferIds[0], expected.first);
+    assert.equal(store.list('local_payment').length, 0); assert.equal(store.list('run').length, 0);
+    assert.ok(c.comparison!.recommendation.rankedOfferIds.every(id => c.comparison!.eligibleOfferIds.includes(id)));
+  });
+}
+test('natural budgets, word-based dates and Hong Kong midnight rollovers are interpreted without fixed demo dates', t => {
+  offline(t); const now = new Date('2026-12-31T16:15:00Z');
+  const p = fallbackProposal('Headphones, budget of 1.9k, official warranty, within two days. Cheapest first, then fastest.', now);
+  assert.equal(p.budgetMinor, 190000); assert.equal(p.deliveryBefore, '2027-01-03');
+  assert.deepEqual(p.softPreferences, ['lowest_total', 'fastest_delivery']);
+  assert.equal(fallbackProposal('千九蚊耳機官方保養後日收到', now).deliveryBefore, '2027-01-03');
+  assert.equal(fallbackProposal('headphones $1900 official warranty by tomorrow', now).deliveryBefore, '2027-01-02');
+  assert.equal(fallbackProposal('耳機 HK$1900 官方保養今日收到', now).deliveryBefore, '2027-01-01');
+  assert.equal(fallbackProposal('Headphones HKD1900 official warranty by 2027-01-05, a gift tomorrow.', now).deliveryBefore, '2027-01-05');
+});
+test('fastest then cheapest preserves first preference; a delivery deadline alone does not request fastest ranking', t => {
+  offline(t);
+  assert.deepEqual(fallbackProposal(requestExamples[2].request.en).softPreferences, ['fastest_delivery', 'lowest_total']);
+  assert.deepEqual(fallbackProposal('Headphones HKD1900 official warranty within 2 days').softPreferences, []);
+  assert.equal(fallbackProposal('Headphones HKD1900 official warranty, battery lasts 2 days').deliveryBefore, null);
+});
+test('confirmed ranking can be edited and inherited without rewriting the model proposal or granting payment authority', async t => {
+  const { shop, store } = offline(t); const d = await shop.draft('buyer', requestExamples[5].request.en);
+  const c = await shop.confirm(d.id, 'buyer', { ...fields, budgetMinor: 190000, rankingPreference: 'fastest_delivery' });
+  assert.equal(d.proposal.softPreferences[0], 'lowest_total'); assert.equal(c.confirmed!.softPreferences![0], 'fastest_delivery');
+  assert.equal(c.comparison!.recommendation.rankedOfferIds[0], 'demo_offer_c_v1');
+  const revision = await shop.draft('buyer', 'Change the budget to HKD 2,000. Keep the other requirements.', c.id);
+  assert.equal(revision.proposal.budgetMinor, 200000); assert.equal(revision.proposal.softPreferences[0], 'fastest_delivery');
+  assert.equal(store.list('local_payment').length, 0);
+});
+test('ranking changes cannot make an over-budget or incompatible offer eligible; invalid priority is rejected', async t => {
+  const { shop } = offline(t); const d = await shop.draft('buyer', text);
+  await assert.rejects(shop.confirm(d.id, 'buyer', { ...fields, rankingPreference: 'pay_now' as 'lowest_total' }), /lowest total or fastest/);
+  const c = await shop.confirm(d.id, 'buyer', { ...fields, rankingPreference: 'fastest_delivery' });
+  assert.deepEqual(c.comparison!.eligibleOfferIds, ['demo_offer_a_v1']); assert.equal(c.comparison!.recommendation.rankedOfferIds[0], 'demo_offer_a_v1');
+  assert.ok(c.comparison!.offers[2].failures.includes('Over total budget'));
+});
+for (const language of ['en', 'zh'] as const) test(`${language} short follow-ups change only requested constraints`, async t => {
+  const { shop } = offline(t); const d = await shop.draft('buyer', text); const c = await shop.confirm(d.id, 'buyer', fields);
+  const warranty = await shop.draft('buyer', revisionExamples[0].request[language], c.id);
+  assert.equal(warranty.proposal.officialWarranty, false); assert.equal(warranty.proposal.budgetMinor, 180000); assert.equal(warranty.proposal.deliveryBefore, fields.deliveryBefore);
+  const budget = await shop.draft('buyer', revisionExamples[1].request[language], c.id);
+  assert.equal(budget.proposal.budgetMinor, 190000); assert.equal(budget.proposal.officialWarranty, true); assert.equal(budget.proposal.softPreferences[0], 'fastest_delivery');
+  const date = await shop.draft('buyer', revisionExamples[2].request[language], c.id);
+  assert.equal(date.proposal.budgetMinor, 180000); assert.equal(date.proposal.officialWarranty, true); assert.equal(date.proposal.deliveryBefore, dateInHongKong(new Date(Date.now() + 86400000)));
+});
+test('an explicit unsupported product in a revision asks for confirmation instead of silently inheriting headphones', t => {
+  offline(t); const p = fallbackProposal('Change to a laptop, keep my other requirements.', new Date(), fallbackProposal(text));
+  assert.equal(p.category, 'unknown'); assert.ok(p.unresolvedQuestions.some(q => q.includes('headphones')));
 });

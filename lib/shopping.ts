@@ -3,10 +3,15 @@ import { DemoMerchant } from './merchants';
 import { dateInHongKong, parseIntent, reasons } from './policy';
 import { AppError, type Intent, type Offer } from './types';
 import type { Store } from './store';
+import type { RankingPreference } from './request-examples';
 
 export interface ShoppingProposal {
   category: 'headphones' | 'unknown'; budgetMinor: number | null; currency: 'hkd' | null;
   officialWarranty: boolean | null; deliveryBefore: string | null; softPreferences: string[]; unresolvedQuestions: string[];
+}
+export interface ShoppingConfirmation {
+  category: string; currency: string; budgetMinor: number; officialWarranty: boolean; deliveryBefore: string;
+  rankingPreference?: RankingPreference;
 }
 type EvidenceField = 'totalMinor' | 'warranty' | 'deliveryDate';
 interface Recommendation { rankedOfferIds: string[]; reasonCode: 'lowest_total' | 'fastest_delivery' | 'best_constraints_fit' | 'no_eligible_offer'; references: { offerId: string; field: EvidenceField }[]; }
@@ -40,19 +45,30 @@ function chineseBudget(text: string) {
   return match ? ((digits[match[1]] || 1) * 1000 + (digits[match[2]] || 0) * 100) * 100 : undefined;
 }
 export function fallbackProposal(text: string, now = new Date(), previous?: ShoppingProposal): ShoppingProposal {
-  const numeric = text.match(/(?:HK\$|HKD|budget|under|below|加到|改做|預算|预算)\s*([\d,]+(?:\.\d{1,2})?)/i)?.[1] || text.match(/([\d,]+(?:\.\d{1,2})?)\s*(?:以下|以內|以内|蚊|港元)/)?.[1];
-  const budget = numeric ? Math.round(Number(numeric.replaceAll(',', '')) * 100) : chineseBudget(text);
-  const category = /耳機|耳机|headphones|earbuds/i.test(text) ? 'headphones' : previous?.category || 'unknown';
-  const official = /唔使.*(?:官方|保養)|第三方.*(?:都得|可以)|any warranty|third.party.*(?:okay|ok)|no.*official warranty/i.test(text) ? false : /官方.*(?:保養|保养)|official warranty/i.test(text) ? true : previous?.officialWarranty ?? null;
+  const numeric = text.match(/(?:HK\$|HKD|\$|budget(?:\s+(?:of|to|is))?[:：]?|under|below|up to|no more than|加到|改做|預算[:：]?|预算[:：]?)\s*([\d,]+(?:\.\d{1,2})?)(\s*k\b)?/i) || text.match(/([\d,]+(?:\.\d{1,2})?)(\s*k\b)?\s*(?:以下|以內|以内|蚊|港元)/i);
+  const budget = numeric ? Math.round(Number(numeric[1].replaceAll(',', '')) * (numeric[2] ? 1000 : 1) * 100) : chineseBudget(text);
+  const category = /耳機|耳机|headphones|earbuds/i.test(text) ? 'headphones' : /laptop|phone\b|camera|手提電腦|手機|相機/i.test(text) ? 'unknown' : previous?.category || 'unknown';
+  const acceptsThirdParty = /(?:唔使|不用|不需要|無需|无需)\s*(?:要)?\s*官方|(?:接受|容許|允许)\s*第三方|第三方(?:保養|保养)?\s*(?:都得|可以|可接受)|any warranty|third[ -]party\s+(?:warranty\s+)?(?:is\s+)?(?:okay|ok|fine|acceptable|accepted)|accept\s+(?:a\s+)?third[ -]party|(?:no|without)\s+(?:need\s+for\s+)?official warranty|(?:do not|don't)\s+(?:need|require)\s+(?:an?\s+)?official warranty/i.test(text);
+  const official = acceptsThirdParty ? false : /官方.*(?:保養|保养)|official warranty/i.test(text) ? true : previous?.officialWarranty ?? null;
   let deadline = text.match(/\d{4}-\d{2}-\d{2}/)?.[0] || previous?.deliveryBefore || null;
   const date = new Date(`${dateInHongKong(now)}T00:00:00Z`);
-  if (/星期日|週日|周日|Sunday/i.test(text)) { const distance = (7 - date.getUTCDay()) % 7; date.setUTCDate(date.getUTCDate() + distance); deadline = date.toISOString().slice(0, 10); }
-  const days = text.match(/(\d+|兩|二|三)\s*(?:日|天|days?)\s*(?:內|内|within)?/i)?.[1];
-  if (days) { const n = ({ 兩: 2, 二: 2, 三: 3 } as Record<string, number>)[days] || Number(days); deadline = dateInHongKong(new Date(now.getTime() + n * 86400000)); }
+  if (!text.match(/\d{4}-\d{2}-\d{2}/)) {
+    if (/星期日|週日|周日|Sunday/i.test(text)) { const distance = (7 - date.getUTCDay()) % 7; date.setUTCDate(date.getUTCDate() + distance); deadline = date.toISOString().slice(0, 10); }
+    const days = text.match(/(?:within|in)\s+(\d+|one|two|three|four|five|six|seven)\s+days?\b/i)?.[1] || text.match(/(\d+|一|兩|二|三|四|五|六|七|八|九|十)\s*(?:日|天)\s*(?:內|内)/)?.[1];
+    const relative = /day after tomorrow|後日|后日|後天|后天/i.test(text) ? 2 : /tomorrow|聽日|听日|明天/i.test(text) ? 1 : /\btoday\b|今日|今天/i.test(text) ? 0 : undefined;
+    if (days !== undefined || relative !== undefined) {
+      const dayWords: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, 一: 1, 兩: 2, 二: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9, 十: 10 };
+      const n = relative ?? dayWords[days!.toLowerCase()] ?? Number(days);
+      const target = new Date(`${dateInHongKong(now)}T00:00:00Z`); target.setUTCDate(target.getUTCDate() + n);
+      deadline = Number.isNaN(target.getTime()) ? null : target.toISOString().slice(0, 10);
+    }
+  }
   if (/唔使咁快|no rush|relax.*delivery/i.test(text)) deadline = null;
-  const soft = [...(previous?.softPreferences || [])];
-  if (/最快|fastest|as soon as/i.test(text)) { soft.splice(0, soft.length, 'fastest_delivery'); }
-  if (/最平|cheapest|lowest price/i.test(text)) { soft.splice(0, soft.length, 'lowest_total'); }
+  const ranking = [...text.matchAll(/最快|最早|fastest|earliest|as soon as|最平|cheapest|lowest (?:price|total)/gi)].map(match => /最快|最早|fastest|earliest|as soon as/i.test(match[0]) ? 'fastest_delivery' : 'lowest_total');
+  const soft = ranking.length ? [...ranking, ...(previous?.softPreferences || []).filter(p => !['fastest_delivery', 'lowest_total'].includes(p))] : [...(previous?.softPreferences || [])];
+  if (/降噪|noise.cancel/i.test(text)) soft.push('noise_cancellation');
+  if (/音質|音质|sound quality/i.test(text)) soft.push('sound_quality');
+  if (/黑色|graphite|black/i.test(text)) soft.push('dark_colour');
   const questions: string[] = [];
   if (category === 'unknown') questions.push('Which product? This demo supports headphones.');
   if (budget === undefined && previous?.budgetMinor == null) questions.push('What is the maximum total budget including delivery?');
@@ -98,7 +114,7 @@ export class Shopping {
     const parent = parentShoppingId ? this.get(parentShoppingId, owner) : undefined;
     if (parentRunId) { const run = this.store.get<{ ownerId: string; shoppingId?: string }>('run', parentRunId); if (!run || run.ownerId !== owner || run.shoppingId !== parentShoppingId) throw new AppError(403, 'Revision must reference your own shopping version and purchase.'); }
     const now = this.now(), safeInput = sanitize(input), started = Date.now(), usage = { input: 0, output: 0 };
-    const previous = parent?.confirmed ? { ...parent.proposal, budgetMinor: parent.confirmed.budgetMinor, officialWarranty: parent.confirmed.officialWarranty, deliveryBefore: parent.confirmed.deliveryBefore, category: 'headphones' as const } : parent?.proposal;
+    const previous = parent?.confirmed ? { ...parent.proposal, budgetMinor: parent.confirmed.budgetMinor, officialWarranty: parent.confirmed.officialWarranty, deliveryBefore: parent.confirmed.deliveryBefore, softPreferences: parent.confirmed.softPreferences || [], category: 'headphones' as const } : parent?.proposal;
     const record: ShoppingRecord = { id: randomUUID(), ownerId: owner, createdAt: now.toISOString(), version: (parent?.version || 0) + 1, parentShoppingId, parentRunId, input: safeInput, clock: { date: dateInHongKong(now), timeZone: 'Asia/Hong_Kong' }, proposal: fallbackProposal(safeInput, now, previous), parseMode: 'fallback', provider: process.env.AI_BASE_URL ? new URL(process.env.AI_BASE_URL).hostname : 'api.openai.com', model: process.env.AI_MODEL || null, latencyMs: 0, cost: 'not_calculated', tools: [] };
     if (process.env.AI_API_KEY && process.env.AI_MODEL) {
       try {
@@ -109,11 +125,13 @@ export class Shopping {
     record.latencyMs = Date.now() - started; if (usage.input || usage.output) record.tokenUsage = usage;
     this.store.insert('shopping', record.id, record); return record;
   }
-  async confirm(id: string, owner: string, fields: { category: string; currency: string; budgetMinor: number; officialWarranty: boolean; deliveryBefore: string }) {
+  async confirm(id: string, owner: string, fields: ShoppingConfirmation) {
     const record = this.get(id, owner);
     if (record.confirmed) throw new AppError(409, 'Create a new shopping version to change confirmed constraints.');
     if (fields.category !== 'headphones' || fields.currency !== 'hkd' || typeof fields.officialWarranty !== 'boolean' || !dateValid(fields.deliveryBefore) || fields.deliveryBefore < dateInHongKong(this.now())) throw new AppError(400, 'Confirm demo headphones, HKD, warranty and a current delivery deadline.');
-    const intent = parseIntent(record.input, fields); intent.softPreferences = record.proposal.softPreferences;
+    if (fields.rankingPreference !== undefined && !['lowest_total', 'fastest_delivery'].includes(fields.rankingPreference)) throw new AppError(400, 'Choose lowest total or fastest delivery.');
+    const intent = parseIntent(record.input, fields);
+    intent.softPreferences = fields.rankingPreference ? [fields.rankingPreference, ...record.proposal.softPreferences.filter(p => !['lowest_total', 'fastest_delivery'].includes(p))] : record.proposal.softPreferences;
     const merchant = new DemoMerchant(this.store), offers = merchant.search(intent);
     const compared = offers.map(o => ({ ...o, failures: reasons(o, intent), unknownFields: ['stock', 'authenticityVerification', ...(record.proposal.softPreferences.includes('noise_cancellation') ? ['noiseCancellation'] : [])] }));
     const eligible = compared.filter(o => !o.failures.length);

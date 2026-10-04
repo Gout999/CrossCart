@@ -9,7 +9,7 @@ import { AppError } from '../../../lib/types';
 import type { DemoControl, Scenario } from '../../../lib/types';
 import { understand } from '../../../lib/intent';
 import { queueVerifiedStripeEvent } from '../../../lib/webhooks';
-import { Shopping } from '../../../lib/shopping';
+import { Shopping, type ShoppingConfirmation } from '../../../lib/shopping';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -51,7 +51,7 @@ async function handleWithStore(request: Request, store: Store) {
       if (request.method !== 'POST') throw new AppError(405, 'POST is required.');
       publicQuota(store, owner, 'ai');
       if (!parts[1]) { keys(body, ['text', 'parentShoppingId', 'parentRunId']); return json(await shopping.draft(owner, String(body.text || ''), typeof body.parentShoppingId === 'string' ? body.parentShoppingId : undefined, typeof body.parentRunId === 'string' ? body.parentRunId : undefined), 201); }
-      if (parts[2] === 'confirm') { keys(body, ['category', 'currency', 'budgetMinor', 'officialWarranty', 'deliveryBefore']); return json(await shopping.confirm(parts[1], owner, body as unknown as { category: string; currency: string; budgetMinor: number; officialWarranty: boolean; deliveryBefore: string })); }
+      if (parts[2] === 'confirm') { keys(body, ['category', 'currency', 'budgetMinor', 'officialWarranty', 'deliveryBefore', 'rankingPreference']); return json(await shopping.confirm(parts[1], owner, body as unknown as ShoppingConfirmation)); }
       throw new AppError(404, 'Shopping endpoint not found.');
     }
     if (parts[0] !== 'runs') throw new AppError(404, 'Endpoint not found.');

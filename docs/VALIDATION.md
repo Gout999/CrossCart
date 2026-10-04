@@ -1,5 +1,13 @@
 # Validation record
 
+## Flexible request update: 4 October 2026, before the 13:00 HKT freeze
+
+- **134 offline checks passed:** 22 unit, 21 integration, 34 installed Stripe SDK contracts, 6 quote-gate, 37 shopping, 9 webhook, 2 network and 3 cloud-boundary checks. TypeScript, ESLint and production build passed.
+- All six request starters were tested in English and Cantonese with AI disabled: exact parsed constraints, eligible ranking, A/B/C recommendations, and no eligible offer under HK$1,600. Tests also cover relative dates across Hong Kong midnight/year rollover, ordered preferences, manual ranking confirmation, inherited follow-ups and unchanged prior approval.
+- Local browser interactions verified Merchant B for the cheaper third-party-warranty request, Merchant C for fastest arrival, the strict-budget empty state, Hong Kong “tomorrow” interpretation, keyboard example activation, editable confirmation and independent revisions. Request layouts at **320px and 390px CSS width** had no horizontal page overflow. These are browser viewport checks, not new physical-phone results.
+- The added consent test approves HK$1,749 with a HK$1,900 budget and rejects a change to HK$1,849 before payment, even though it remains below that budget.
+- These new checks use offline model/provider fixtures and local simulated payments. Earlier public Stripe acceptance is recorded separately below; the transaction coordinator and payment adapter are unchanged.
+
 ## Public deployment: 4 October 2026, Hong Kong time
 
 **Live URL:** [crosscart.vercel.app](https://crosscart.vercel.app/)
@@ -32,4 +40,4 @@ The supplied ten-slide ImageGen pitch deck replaces the initial deck. Its image-
 
 The recording uses actual public HTTPS purchase, blocked-transaction, benchmark and guide interactions, with Andrew Multilingual Neural English narration, voice-timed on-screen captions, focused zooms and frame-driven paper transitions. Its audit excerpt and refund screenshot come from independently verified public Stripe test cases. Browser benchmark times include scripted pauses and are not human-study findings. See [recording transcript](VIDEO.md).
 
-Creating and publishing deliverables does **not** submit the HacKU final form. A form receipt has not been obtained. HKT/Club merchant APIs, loyalty accounts, legal identity and real settlement remain outside the prototype.
+Creating and publishing deliverables is separate from submitting the HacKU final form. **The Google Forms submission confirmation was observed on 4 October 2026 at 08:49 HKT.** The private receipt records “我們已經收到您回覆的表單。”; it does not independently validate demo behavior or competition results. HKT/Club merchant APIs, loyalty accounts, legal identity and real settlement remain outside the prototype.

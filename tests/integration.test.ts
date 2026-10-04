@@ -26,6 +26,15 @@ test('price drift blocks before payment, approved quote unchanged', async () => 
   const { s, c, id } = setup(); const hash = c.get(id).mandate!.hash; c.scenario(id, 'buyer', 'price_drift'); c.commit(id, 'buyer'); const r = await drain(c, id);
   assert.equal(r.status, 'BLOCKED'); assert.equal(r.paymentState, 'NOT_STARTED'); assert.equal(r.currentOffer?.totalMinor, 184900); assert.equal(r.mandate?.offer.totalMinor, 174900); assert.equal(r.mandate?.hash, hash); assert.equal(s.list('local_payment').length, 0); s.close();
 });
+test('remaining search budget never authorizes a changed exact deal: 1749 to 1849 stays below 1900 but is blocked', async () => {
+  const s = new Store(':memory:'); const c = new Commerce(s, 'local');
+  let run = c.create('buyer', 'HK$1,900 headphones official warranty'); run = c.quote(run.id, 'buyer', 'merchant_a');
+  run = c.approve(run.id, 'buyer', run.mandate!.id, run.mandate!.hash);
+  c.scenario(run.id, 'buyer', 'price_drift'); c.commit(run.id, 'buyer'); const result = await drain(c, run.id);
+  assert.ok(result.currentOffer!.totalMinor < result.intent.budgetMinor); assert.equal(result.intent.budgetMinor, 190000);
+  assert.equal(result.mandate!.offer.totalMinor, 174900); assert.equal(result.currentOffer!.totalMinor, 184900);
+  assert.equal(result.status, 'BLOCKED'); assert.equal(result.paymentState, 'NOT_STARTED'); assert.equal(s.list('local_payment').length, 0); s.close();
+});
 test('Stripe demo cannot simulate provider capture or refund outcomes with local-only controls', () => {
   const s = new Store(':memory:'); const c = new Commerce(s, 'stripe');
   const r = c.create('buyer', 'HK$1,800 以下耳機，官方保養');

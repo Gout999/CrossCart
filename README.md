@@ -44,11 +44,28 @@ The `/benchmark` page compares a three-screen manual layout with one normalized 
 
 The `/evidence` page explains sources and observations. Domestic-card Stripe processing is illustrated on the **merchant side**; rebates and Clubpoints are conditional references and do not reduce this demo's approved amount.
 
+## Try different shopping requests
+
+The request composer includes six editable examples in **English and Cantonese**. They fill the input; you still review the interpreted requirements and approve a specific purchase yourself. You can also type your own request, edit the confirmed budget/warranty/date, and choose **lowest total** or **fastest delivery** as the ranking priority.
+
+| Example | Confirmed requirements | Expected synthetic result |
+| --- | --- | --- |
+| Official warranty | HK$1,800, official warranty, within 2 days, cheapest | Merchant A — HK$1,749 |
+| Spend less | HK$1,750, third-party warranty acceptable, within 2 days | Merchant B — HK$1,699 |
+| Speed comes first | HK$1,900, official warranty, within 3 days, fastest | Merchant C — HK$1,829 |
+| A gift for tomorrow | HK$1,900, official warranty, arrive tomorrow | Merchant C — HK$1,829 |
+| A firm budget | HK$1,600, official warranty, within 2 days | No eligible offer; constraints stay unchanged |
+| Room in the budget | HK$1,900, official warranty, within 2 days, cheapest | Merchant A; a change to HK$1,849 still requires fresh approval |
+
+Delivery deadlines use the current Hong Kong date. **Revise request** supports follow-ups such as “accept third-party warranty”, “raise my budget and choose fastest”, or “arrive tomorrow”. Unchanged confirmed requirements carry over into a new version; the previous mandate and payment keep their own record. Missing requirements ask for confirmation.
+
+The catalogue remains **one synthetic headphone product at three demo merchants**. Different requests demonstrate different constraints and outcomes; they do not imply live retailer search or support for other product categories.
+
 ## What is implemented
 
 - Cantonese/English intent interpretation with live DeepSeek when configured; visible, deterministic fallback on unavailable/invalid model output.
 - Read-only `searchOffers` / `getOfferDetails` tools. Model prices and instructions cannot grant payment authority.
-- Buyer confirmation of category, total budget, warranty and delivery before comparison.
+- Six bilingual request examples and editable follow-ups; buyer confirmation of category, total budget, warranty, delivery and ranking priority before comparison.
 - Immutable exact approval, server-owned payment amounts, accepted merchant quote and repeated pre-payment/pre-capture validation.
 - Official Stripe **test-mode** Hosted Checkout, manual authorization/capture, cancellation, provider retrieval and refund.
 - Stable operation keys, durable checkpoints and webhook deduplication. Redirect messages are never payment truth.
